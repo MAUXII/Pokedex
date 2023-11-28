@@ -1,0 +1,283 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+  @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css");
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    
+}
+
+body::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: var(--text-color);
+  }
+  
+  body::-webkit-scrollbar-track {
+    background-color: var(--border-color);
+  }
+
+:root {
+    --background-color: #1b1b1b;
+    --text-color: #f8f8f8;
+    --box-background: #1b1b1b;
+    --box-shadow: rgba(80, 80, 80, 0.01) inset;
+    --border-color: #1f1f1f;
+    --hover-background: #181818;
+
+    --background-color-light: #f8f8f8;
+  --text-color-light: #1b1b1b;
+  --box-background-light: #f8f8f8;
+  --box-shadow-light: rgba(0, 0, 0, 0.1) inset;
+  --border-color-light: #e0e0e0;
+  --hover-background-light: #eeeeee;
+  }
+
+  .whitemode {
+    --background-color: var(--background-color-light);
+    --text-color: var(--text-color-light);
+    --box-background: var(--box-background-light);
+    --box-shadow: var(--box-shadow-light);
+    --border-color: var(--border-color-light);
+    --hover-background: var(--hover-background-light);
+  }
+
+body{
+    background-color: var(--background-color);
+    transition: all 0.25s ease;
+}
+
+.container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .content{
+    width: 100%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+}
+
+.title{
+    display: flex;
+    width: 35%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.title svg, .title svg path{
+    height: 100%;
+    max-height: 35px;
+    width: 100%;
+    max-width: fit-content;
+    fill: var(--text-color);
+}
+.title svg{
+    margin-left: -30px;
+}
+
+@media screen and (max-width:500px) {
+    .title svg{
+        display: none;
+    }
+
+    .title h1{
+        margin-left: -30px;
+    }
+}
+
+.theme-switcher{
+    cursor: pointer;
+}
+
+.title .theme-switcher{
+    margin-right: -30px;
+}
+
+.pokemon-boxes{
+    margin-top:25px;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+
+    display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, 166px);
+    gap: 10px;
+}
+
+.pokemon-box{
+    border-radius: 5px;
+    background-color: var(--box-background);
+    box-shadow: 4px 4px 100px 0px rgba(248, 248, 248, 0.01), 0px 4px 20px 0px var(--box-shadow);
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 20px 30px;
+transition: all 0.25s ease;
+}
+
+.pokemon-box img{
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: transform 0.5s ease;
+}
+
+.pokemon-box img:hover{
+    transform: scale(1.1);
+}
+
+.inputs{
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap:nowrap;
+    
+}
+.busca {
+  width: 100%;
+  max-width: 640px;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 5px 0 0 5px;
+    background-color: rgba(255, 0, 17, 0);
+    border: 1px solid var(--border-color);
+    box-shadow: 4px 4px 20px 0px rgba(255, 255, 255, 0.01);
+    color: var(--text-color);
+    transition: background-color, border 0.25s ease;
+}
+
+.busca:focus{
+  outline: none;
+  border: 1px solid var(--background-color-light);
+}
+
+
+
+
+
+
+.quantidade {
+  width: 100%;
+    max-width: 145px;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 5px 0 0 5px;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 4px 4px 20px 0px rgba(255, 255, 255, 0.01);
+  color: var(--text-color);
+  transition: all 0.25s ease;
+  outline: none;
+}
+
+.busca:hover{
+  border-color: var(--select-border-color);
+
+}
+
+.quantidade:hover {
+  border-color: var(--select-border-color);
+}
+.quantidade::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 6px 0;
+  border-color: var(--select-arrow-color) transparent transparent transparent;
+}
+
+footer {
+    display: flex;
+    width: 100%;
+    height: 328px;
+    justify-content: center;
+  }
+    
+    footer .content{
+      margin: 0 20px;
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      width: 100%;
+      max-width: 1920px;
+    }
+    
+    footer .content .copyright {
+      display: flex;
+      flex-direction: column;
+      color: var(--text-color);
+      text-align: center;
+      gap: 10px;
+      
+    }
+
+    footer .content .copyright svg, footer .content .copyright svg path{
+        height: 100%;
+    max-height: 35px;
+    width: 100%;
+    max-width: fit-content;
+    fill: var(--text-color);
+    }
+    
+    footer .content .copyright .socials{
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    footer .content .copyright .socials .logo{
+      color: var(--text-color);
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 32px;
+      height: 32px;
+      background-color: var(--border-color);
+      border-radius: 50%;
+      transition: all 0.25s ease;
+    }
+    
+    footer .content .copyright .socials .logo:hover{
+
+      color: var(--text-color);
+      color: var(--text-color);
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      background-color: var(--border-color);
+      border-radius: 50%;
+      background-color: var(--background-color);
+    
+    }
+
+    
+    #notFoundMessage {
+      color: #fa4545;
+  }

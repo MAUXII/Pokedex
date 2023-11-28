@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./logo.svg" type="image/x-icon">
+  <link rel="shortcut icon" href="./logo.svg" type="image/x-icon">
+    <title>Pokédex/</title>
+</head>
+<body>
+    <section class="container">
+        <div class="content">
+            <div class="title">
+                <svg width="147" height="166" viewBox="0 0 147 166" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M36.521 20.802L0.521004 41.604L0.260002 84.191L0 126.777L11.272 133.323C17.472 136.923 23.322 140.167 24.272 140.532C25.889 141.152 26.016 138.496 26.26 98.889L26.521 56.583L49.521 43.304C62.171 36 72.971 30.024 73.521 30.024C74.071 30.024 84.871 36 97.521 43.303L120.521 56.583L120.787 84.204L121.052 111.825L99.556 124.157L78.059 136.489L78.04 151.346C78.025 162.832 78.305 166.092 79.271 165.714C79.959 165.445 95.371 156.649 113.521 146.167L146.521 127.11V84.357V41.605L110.521 20.802C90.721 9.361 74.071 0 73.521 0C72.971 0 56.321 9.361 36.521 20.802ZM58.021 49.151C49.496 54.092 41.932 58.472 41.211 58.885C40.359 59.373 45.589 62.903 56.165 68.979C65.11 74.118 72.92 78.322 73.521 78.322C74.666 78.322 107.248 59.851 106.786 59.464C106.64 59.342 100.446 55.749 93.021 51.481C85.596 47.214 78.171 42.922 76.521 41.945L73.521 40.169L58.021 49.151ZM35.26 107.638L35.521 147.287L51.521 156.594C60.321 161.713 67.864 165.921 68.282 165.945C68.701 165.969 68.926 148.18 68.782 126.414L68.521 86.838L52.206 77.414C43.233 72.23 35.69 67.989 35.445 67.989C35.199 67.989 35.116 85.831 35.26 107.638ZM94.521 77.491L78.521 86.834L78.249 106.027C77.994 124.046 78.085 125.178 79.749 124.542C81.689 123.8 102.268 112.097 108.271 108.322L112.021 105.964V86.976C112.021 76.533 111.683 68.025 111.271 68.068C110.859 68.112 103.321 72.352 94.521 77.491Z" fill="#1B1B1B"/>
+                    </svg>
+            <h1>POKÉDEX</h1>
+            <a class="theme-switcher" onclick="toggleTheme()" title="Alternar Modo"><i id="themeIcon" class="bi bi-moon-stars-fill"></i></a>
+            <script>
+             function toggleTheme() {
+  const body = document.body;
+  const themeIcon = document.getElementById('themeIcon');
+
+  if (body.classList.contains('whitemode')) {
+    body.classList.remove('whitemode');
+    themeIcon.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
+  } else {
+    body.classList.add('whitemode');
+    themeIcon.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
+  }
+}
+
+// Verifica as configurações do navegador e aplica o tema escuro ou claro
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  body.classList.add('whitemode');
+  themeIcon.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
+}
+
+            </script>
+            </div>
+
+            
+            
+            <div class="inputs">
+                <input type="text" id="searchInput" oninput="performSearch()" placeholder="Buscar" class="busca">
+                <select id="quantitySelect" class="quantidade">
+                    <option value="" disabled selected>Quantidade</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="1000">1000</option>
+                </select> 
+            </div>
+            <div class="pokemon-boxes">
+               
+            </div>
+            
+            <span id="notFoundMessage" style="display:none;">Pokémon Não Encontrado</span>
+        </div>
+
+        <script>
+            function setupEventListeners() {
+                const inputQuantidade = document.getElementById('quantitySelect');
+    
+                function insertQ() {
+    const inputQuantidade = document.getElementById('quantitySelect');
+    const notFoundMessage = document.getElementById('notFoundMessage');
+    
+    var quantidade = parseInt(inputQuantidade.value);
+
+    if (!isNaN(quantidade) && quantidade > 0) {
+        catchPokemons(quantidade);
+        notFoundMessage.style.display = 'none'; 
+    } else {
+        alert("Por favor, insira uma quantidade válida maior que 0.");
+        notFoundMessage.style.display = 'flex'; 
+    }
+}
+    
+                inputQuantidade.addEventListener('change', insertQ);
+            }
+    
+            function performSearch() {
+                const searchTerm = document.getElementById('searchInput').value;
+                const pokemonBoxes = document.querySelector('.pokemon-boxes');
+                const notFoundMessage = document.getElementById('notFoundMessage');
+    
+                const allPokemonBoxes = document.querySelectorAll('.pokemon-box');
+                let foundResults = false;
+    
+                allPokemonBoxes.forEach(box => {
+                    const pokemonName = box.querySelector('p').textContent.toLowerCase();
+                    if (pokemonName.includes(searchTerm.toLowerCase())) {
+                        box.style.display = 'flex';
+                        foundResults = true;
+                    } else {
+                        box.style.display = 'none';
+                    }
+                });
+    
+                if (!foundResults) {
+                    notFoundMessage.style.display = 'flex';
+                } else {
+                    notFoundMessage.style.display = 'none';
+                }
+            }
+    
+            setupEventListeners();
+    
+            async function catchPokemons(quantidade) {
+                const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=' + quantidade);
+                const allpokemon = await response.json();
+    
+                var pokemons = [];
+    
+                if (allpokemon.results && allpokemon.results.length > 0) {
+                    await Promise.all(allpokemon.results.map(async (val) => {
+                        const response = await fetch(val.url);
+                        const pokemonSingle = await response.json();
+    
+                        pokemons.push({
+                            nome: val.name,
+                            imagem: pokemonSingle.sprites.front_default
+                        });
+                    }));
+                }
+    
+                var pokemonBoxes = document.querySelector('.pokemon-boxes');
+                pokemonBoxes.innerHTML = "";
+    
+                pokemons.forEach(function (val) {
+                    pokemonBoxes.innerHTML += `
+                        <div class="pokemon-box">
+                            <img src="${val.imagem}" />
+                            <p> ${val.nome} </p>
+                        </div>
+                    `;
+                });
+            }
+
+            
+        </script>
+
+    </section>
+    <footer>
+        <section class="container">
+            <div class="content">
+                <div class="copyright">
+                    <div>
+                        <svg width="267" height="258" viewBox="0 0 267 258" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.28857 12.1583L15.3266 24.7633V95.2723C15.3266 156.651 15.1266 166.261 13.7786 169.485C11.7266 174.396 8.66357 177.6 3.98157 179.731C1.86657 180.694 0.516565 181.707 0.981565 181.984C8.35557 186.364 61.5906 216.717 61.8996 216.717C62.1346 216.717 62.3266 188.592 62.3266 154.217C62.3266 119.842 62.6206 91.7173 62.9806 91.7173C63.3396 91.7173 73.9146 97.6263 86.4806 104.848L109.327 117.98V169.881C109.327 211.453 109.056 222.431 107.963 225.046C106.395 228.799 101.29 233.437 97.7496 234.326C96.4166 234.66 95.3266 235.247 95.3266 235.629C95.3266 236.457 131.902 257.717 133.327 257.717C134.752 257.717 171.327 236.457 171.327 235.629C171.327 235.247 170.237 234.66 168.904 234.326C165.364 233.437 160.259 228.799 158.691 225.046C157.599 222.431 157.327 211.46 157.327 169.929V118.076L179.261 105.391C191.324 98.4133 201.899 92.4353 202.761 92.1043C204.172 91.5623 204.327 97.6953 204.327 154.11C204.327 188.544 204.568 216.717 204.862 216.717C205.156 216.717 216.069 210.566 229.112 203.047C272.05 178.297 267.749 181.051 264.478 180.397C260.447 179.591 255.372 175.026 253.207 170.258C251.482 166.461 251.37 161.946 251.349 95.4903L251.327 24.7633L259.365 12.1583C263.785 5.2253 267.048 -0.242692 266.615 0.00830759C169.053 56.4103 134.533 76.1213 133.327 76.1153C132.197 76.1093 67.4126 39.1183 0.038572 0.0103065C-0.394428 -0.241694 2.86857 5.2253 7.28857 12.1583Z" fill="#1B1B1B"/>
+                            </svg>
+                            
+                            
+                        <p>Copyright © 2023  MauMauDev<br>Todos Direitos Reservados</p>
+                    </div>
+                    <div class="socials">
+                        <a href="https://www.instagram.com/mauxxll/" class="logo"><i class="bi bi-instagram"></i></a>
+                        <a href="https://dribbble.com/LSSx" class="logo"><i class="bi bi-dribbble"></i></a>
+                        <a href="https://www.linkedin.com/in/mauricio-leandro-309759253/" class="logo"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://github.com/MAUXII?tab=repositories" class="logo"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </footer>
+</body>
+</html>
